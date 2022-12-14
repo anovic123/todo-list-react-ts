@@ -10,7 +10,7 @@ declare module '*.module.css' {
 
 type Todo = {
   id: number;
-  name: string;
+  title: string;
   description: string;
-  checked: string;
+  checked: boolean;
 }
