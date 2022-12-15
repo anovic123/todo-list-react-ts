@@ -5,14 +5,28 @@ import styles from './TodoPanel.module.css';
 
 const DEFAULT_TODO = { title: '', description: '' };
 
-interface TodoPanelProps {
+interface AddTodoPanelProps {
+  mode: 'add';
   addTodo: ({ title, description }: Omit<Todo, 'id' | 'checked'>) => void;
 }
 
+interface EditTodoPanelProps {
+  mode: 'edit';
+  editTodo: Omit<Todo, 'id' | 'checked'>;
+  changeTodo: ({ title, description }: Omit<Todo, 'id' | 'checked'>) => void;
+}
+
+type TodoPanelProps = AddTodoPanelProps | EditTodoPanelProps;
+
 export const TodoPanel: React.FC<TodoPanelProps> = (props) => {
-  const [todo, setTodo] = React.useState(DEFAULT_TODO);
+  const isEdit = props.mode === 'edit';
+  const [todo, setTodo] = React.useState(isEdit ? props.editTodo : DEFAULT_TODO);
 
   const onClick = () => {
+    if (isEdit) {
+      return props.changeTodo(todo);
+    }
+
     props.addTodo(todo);
     setTodo(DEFAULT_TODO);
   };
@@ -53,9 +67,15 @@ export const TodoPanel: React.FC<TodoPanelProps> = (props) => {
         </div>
       </div>
       <div className={styles.buttonContainer}>
-        <Button color="Blue" onClick={onClick}>
-          ADD
-        </Button>
+        {!isEdit ? (
+          <Button color="Blue" onClick={onClick}>
+            ADD
+          </Button>
+        ) : (
+          <Button color="Orange" onClick={onClick}>
+            EDIT
+          </Button>
+        )}
       </div>
     </div>
   );
