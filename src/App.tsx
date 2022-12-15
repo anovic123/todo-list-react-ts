@@ -14,12 +14,16 @@ export const App = () => {
     setTodos([...todos, { id: todos[todos.length - 1].id + 1, description, title, checked: false }])
   }
 
+  const deleteTodo = (id: Todo['id']) => {
+    setTodos(todos.filter((todo) => todo.id !== id))
+  }
+
   return (
     <div className={styles.addContainer}>
       <div className={styles.container}>
         <Header todoCount={todos.length} />
         <TodoPanel addTodo={addTodo} />
-        <TodoList todos={todos} />
+        <TodoList todos={todos} deleteTodo={deleteTodo} />
       </div>
     </div>
   );

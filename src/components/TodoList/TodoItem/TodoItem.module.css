@@ -18,3 +18,9 @@
   font-size: .9375rem;
   margin-bottom: .9375rem;
 }
+
+.todoItemButtonContainer {
+  display: flex;
+  justify-content: right;
+  gap: .3125rem;
+}
