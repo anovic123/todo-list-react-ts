@@ -18,12 +18,29 @@ export const App = () => {
     setTodos(todos.filter((todo) => todo.id !== id))
   }
 
+  const checkTodo = (id: Todo['id']) => {
+    setTodos(
+      todos.map((todo) => {
+        if (todo.id === id) {
+          return { ...todo, checked: !todo.checked }
+        }
+
+        return todo
+      })
+    )
+  }
+
+
   return (
     <div className={styles.addContainer}>
       <div className={styles.container}>
         <Header todoCount={todos.length} />
         <TodoPanel addTodo={addTodo} />
-        <TodoList todos={todos} deleteTodo={deleteTodo} />
+        <TodoList 
+          todos={todos} 
+          deleteTodo={deleteTodo} 
+          checkTodo={checkTodo}
+        />
       </div>
     </div>
   );
