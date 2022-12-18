@@ -35,7 +35,8 @@ export const TodoList: React.FC<TodoListProps> = ({
             checkTodo={checkTodo}
             selectTodoIdForEdit={selectTodoIdForEdit}
           />
-        );
+        )
+        
       })}
     </>
   );
